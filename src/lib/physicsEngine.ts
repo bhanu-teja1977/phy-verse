@@ -42,6 +42,7 @@ export function getDefaultParams(): PhysicsParams {
 export function parsePhysicsProblem(text: string): Partial<PhysicsParams> {
   const result: Partial<PhysicsParams> = {};
   const lower = text.toLowerCase();
+  const clampAngle = (value: number) => Math.max(-90, Math.min(90, value));
 
   // Extract object name
   const objects = ["car", "bike", "rocket", "ball", "stone", "object", "human", "person", "block", "particle", "bullet", "arrow"];
@@ -93,7 +94,7 @@ export function parsePhysicsProblem(text: string): Partial<PhysicsParams> {
   // Extract angle
   const angleMatch = lower.match(/(\d+\.?\d*)\s*(degree|°|deg)/);
   if (angleMatch) {
-    result.angle = parseFloat(angleMatch[1]);
+    result.angle = clampAngle(parseFloat(angleMatch[1]));
     result.motionType = "projectile";
     result.isVerticalMotion = false;
   }
@@ -132,6 +133,14 @@ export function parsePhysicsProblem(text: string): Partial<PhysicsParams> {
   if (result.motionType === "linear" && result.isVerticalMotion) {
     const gravityValue = result.gravity ?? 9.8;
     result.acceleration = -Math.abs(gravityValue);
+  }
+
+  if (result.angle !== undefined) {
+    result.angle = clampAngle(result.angle);
+  }
+
+  if (result.motionType === "projectile" && (result.angle === undefined || Number.isNaN(result.angle))) {
+    result.angle = 90;
   }
 
   if (/decel|stop|brak/.test(lower)) {

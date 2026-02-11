@@ -22,6 +22,8 @@ const examples = [
   "Rocket launched at 40 m/s at 60 degrees",
 ];
 
+const clampAngleValue = (value: number) => Math.max(-90, Math.min(90, value));
+
 export default function Index() {
   const [problemText, setProblemText] = useState("");
   const [params, setParams] = useState<PhysicsParams>(getDefaultParams());
@@ -43,9 +45,17 @@ export default function Index() {
   const handleGenerate = () => {
     if (!problemText.trim()) return;
     const parsed = parsePhysicsProblem(problemText);
+    const defaults = getDefaultParams();
+    const motionType = parsed.motionType ?? defaults.motionType;
+    const angleForMotion =
+      motionType === "projectile"
+        ? clampAngleValue(parsed.angle ?? 90)
+        : clampAngleValue(parsed.angle ?? defaults.angle);
     const newParams: PhysicsParams = {
-      ...getDefaultParams(),
+      ...defaults,
       ...parsed,
+      motionType,
+      angle: angleForMotion,
       time: parsed.time ?? 5,
     };
     setParams(newParams);
@@ -53,7 +63,11 @@ export default function Index() {
   };
 
   const handleParamChange = (key: string, value: number) => {
-    const newParams = { ...params, [key]: value };
+    let nextValue = value;
+    if (key === "angle") {
+      nextValue = Number.isFinite(value) ? clampAngleValue(value) : 90;
+    }
+    const newParams = { ...params, [key]: nextValue };
     setParams(newParams);
     generateSimulation(newParams);
   };
