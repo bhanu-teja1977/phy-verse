@@ -1,7 +1,7 @@
 # PhyVerse
 
 ## 1. Project Title
-PhyVerse – Real-Time Interactive Physics Simulation Platform
+PhyVerse : Real-Time Interactive Physics Simulation Platform
 
 ---
 
