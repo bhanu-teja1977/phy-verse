@@ -52,8 +52,6 @@ const kinematicsExamples = [
   "A particle is moving in a circle of radius 4 m and completes one revolution in 8 seconds",
   "An object moves in a circular path of radius 0 m at 5 m/s",
   "A 4 kg block slides down a 25 degree incline with friction coefficient 0.2",
-  "A block slides on a rough inclined plane of 30 degrees with friction coefficient 0.2",
-  "A ball is projected up an inclined plane of 30 degrees with speed 20 m/s",
 ];
 
 const fluidSimExamples = [
