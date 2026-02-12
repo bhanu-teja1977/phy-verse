@@ -44,7 +44,7 @@ Deployment:
 4. Start the development server
    npm run dev
 
-. Open the local URL shown in the terminal (usually)
+5. Open the local URL shown in the terminal (usually)
 ---
 
 ## Dependencies
