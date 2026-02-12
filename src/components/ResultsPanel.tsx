@@ -1,22 +1,81 @@
-import { TrendingUp, Clock, Navigation } from "lucide-react";
+import { TrendingUp, Clock, Navigation, RotateCw, Zap, Scale, Grip } from "lucide-react";
 
 interface Props {
   displacement: number;
   time: number;
   maxHeight: number | null;
   range: number | null;
+  angularVelocity?: number;
+  centripetalAcceleration?: number;
+  centripetalForce?: number | null;
+  isCircular?: boolean;
+  frictionForce?: number;
+  frictionAcceleration?: number;
+  timeToStop?: number;
+  isFriction?: boolean;
+  isConstantVelocity?: boolean;
+  normalForce?: number;
+  netAccelerationAlongIncline?: number;
+  inclineFrictionForce?: number | null;
+  isInclined?: boolean;
 }
 
-export default function ResultsPanel({ displacement, time, maxHeight, range }: Props) {
-  const items = [
-    ...(maxHeight !== null
-      ? [{ label: "Maximum Height", value: maxHeight.toFixed(2), unit: "m", icon: TrendingUp, bg: "bg-result-purple" }]
-      : []),
-    { label: "Time Taken", value: time.toFixed(2), unit: "s", icon: Clock, bg: "bg-result-yellow" },
-    ...(range !== null
-      ? [{ label: "Horizontal Range", value: range.toFixed(2), unit: "m", icon: Navigation, bg: "bg-result-green" }]
-      : [{ label: "Displacement", value: displacement.toFixed(2), unit: "m", icon: Navigation, bg: "bg-result-green" }]),
-  ];
+export default function ResultsPanel({
+  displacement,
+  time,
+  maxHeight,
+  range,
+  angularVelocity,
+  centripetalAcceleration,
+  centripetalForce,
+  isCircular = false,
+  frictionForce,
+  frictionAcceleration,
+  timeToStop,
+  isFriction = false,
+  normalForce,
+  netAccelerationAlongIncline,
+  inclineFrictionForce,
+  isInclined = false,
+  isConstantVelocity = false,
+}: Props) {
+  const items = isFriction && (isConstantVelocity || (frictionForce != null && frictionAcceleration != null))
+    ? isConstantVelocity
+      ? [
+          { label: "Friction Force", value: "0", unit: "N", icon: Grip, bg: "bg-result-purple" as const },
+          { label: "Acceleration", value: "0", unit: "m/s²", icon: Zap, bg: "bg-result-yellow" as const },
+          { label: "Motion Type", value: "Constant velocity", unit: "", icon: Navigation, bg: "bg-result-green" as const },
+        ]
+      : [
+          { label: "Friction Force", value: frictionForce!.toFixed(2), unit: "N", icon: Grip, bg: "bg-result-purple" as const },
+          { label: "Acceleration due to Friction", value: frictionAcceleration!.toFixed(2), unit: "m/s²", icon: Zap, bg: "bg-result-yellow" as const },
+          ...(timeToStop != null ? [{ label: "Time to Stop", value: timeToStop.toFixed(2), unit: "s", icon: Clock, bg: "bg-result-green" as const }] : []),
+          { label: "Distance Traveled", value: displacement.toFixed(2), unit: "m", icon: Navigation, bg: "bg-result-green" as const },
+        ]
+    : isInclined && netAccelerationAlongIncline != null
+      ? [
+          { label: "Net Acceleration along Incline", value: netAccelerationAlongIncline.toFixed(2), unit: "m/s²", icon: Zap, bg: "bg-result-purple" as const },
+          ...(normalForce != null ? [{ label: "Normal Force", value: normalForce.toFixed(2), unit: "N", icon: Scale, bg: "bg-result-yellow" as const }] : []),
+          ...(inclineFrictionForce != null && inclineFrictionForce > 0 ? [{ label: "Friction Force", value: inclineFrictionForce.toFixed(2), unit: "N", icon: Grip, bg: "bg-result-green" as const }] : []),
+          { label: "Time to Bottom", value: time.toFixed(2), unit: "s", icon: Clock, bg: "bg-result-green" as const },
+        ]
+      : isCircular && angularVelocity != null && centripetalAcceleration != null
+    ? [
+        { label: "Angular Velocity", value: angularVelocity.toFixed(2), unit: "rad/s", icon: RotateCw, bg: "bg-result-purple" as const },
+        { label: "Centripetal Acceleration", value: centripetalAcceleration.toFixed(2), unit: "m/s²", icon: Zap, bg: "bg-result-yellow" as const },
+        ...(centripetalForce != null && centripetalForce > 0
+          ? [{ label: "Centripetal Force", value: centripetalForce.toFixed(2), unit: "N", icon: Scale, bg: "bg-result-green" as const }]
+          : []),
+      ]
+    : [
+        ...(maxHeight !== null
+          ? [{ label: "Maximum Height", value: maxHeight.toFixed(2), unit: "m", icon: TrendingUp, bg: "bg-result-purple" as const }]
+          : []),
+        { label: "Time Taken", value: time.toFixed(2), unit: "s", icon: Clock, bg: "bg-result-yellow" as const },
+        ...(range !== null
+          ? [{ label: "Horizontal Range", value: range.toFixed(2), unit: "m", icon: Navigation, bg: "bg-result-green" as const }]
+          : [{ label: "Displacement", value: displacement.toFixed(2), unit: "m", icon: Navigation, bg: "bg-result-green" as const }]),
+      ];
 
   return (
     <div className="bg-card rounded-lg border border-border p-5 space-y-3">
