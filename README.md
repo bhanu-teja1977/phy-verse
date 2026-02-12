@@ -40,7 +40,7 @@ Deployment:
 1. Clone the repository   
 2. Open the project folder
 3. Install dependencies
-4. Start the development server 'npm run dev'
+4. Start the development server npm run dev
 5. Open the local URL shown in the terminal (usually)
 
 ---
