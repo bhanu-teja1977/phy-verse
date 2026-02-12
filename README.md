@@ -1,12 +1,12 @@
 # PhyVerse
 
 ## 1. Project Title
-PhyVerse – AI-Powered Interactive Physics Simulation Platform
+PhyVerse – Real-Time Interactive Physics Simulation Platform
 
 ---
 
 ## 2. Description
-PhyVerse is an AI-powered educational platform that converts physics word problems into interactive visual simulations.  
+PhyVerse is an Real-Time Interactive educational platform that converts physics word problems into interactive visual simulations.  
 Users can enter problems in natural language, and the system automatically understands the problem, extracts key parameters, solves the equations, and generates a real-time simulation.
 
 The platform supports multiple physics domains:
@@ -27,11 +27,10 @@ Frontend:
 
 Development Tools:
 - Cursor
-- Lovable
 
 Deployment:
 - GitHub
-- Vercel / Netlify
+- Vercel 
 
 ---
 
@@ -42,8 +41,9 @@ Deployment:
 2. Open the project folder
 3. Install dependencies
 4. Start the development server
-   npm run dev
+npm run dev
 5. Open the local URL shown in the terminal (usually)
+
 ---
 
 ## 5. Dependencies
@@ -79,7 +79,7 @@ Main technologies used:
 
 ---
 
-## (7,8).Demo of MVP
+## (7-8).Demo of MVP
 Simulation(Images and Videos):
 https://drive.google.com/drive/folders/1IOuApsUWvHut73MHb2ZZ45g_JMO4npiE?usp=drive_link
 
