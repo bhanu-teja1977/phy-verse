@@ -43,11 +43,10 @@ Deployment:
 3. Install dependencies
 4. Start the development server
    npm run dev
-
 5. Open the local URL shown in the terminal (usually)
 ---
 
-## Dependencies
+## 5. Dependencies
 
 The project requires:
 
@@ -62,6 +61,30 @@ Main technologies used:
 - JavaScript
 - Vite (development server)
 - Canvas API for simulations
+
+---
+
+## 6. Important Instructions
+1. Enter a physics problem in natural language.
+2. Select the appropriate section:
+   - Kinematics
+   - Fluid Dynamics
+   - Wave Optics
+3. Click **Generate Simulation**.
+4. Adjust sliders to explore different scenarios.
+
+**Notes**
+- Complex objects (cars, bikes, etc.) are represented as simple dots.
+- Some problems are calculation-only and will not show simulations.
+
+---
+
+## (7,8).Demo of MVP
+Simulation(Images and Videos):
+https://drive.google.com/drive/folders/1IOuApsUWvHut73MHb2ZZ45g_JMO4npiE?usp=drive_link
+
+
+
 
 
 
